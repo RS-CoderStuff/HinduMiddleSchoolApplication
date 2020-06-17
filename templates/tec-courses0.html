@@ -1,0 +1,171 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+<script src="{% static '' %}js/popper.min.js"></script>
+<section class="tec-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>TEC Courses</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="all-courses">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-2">
+            <h3 class="categoryheading">Select Course</h3>
+                </div>
+             <div class="col-md-6 mb-2">
+             <!--<a href="/tec-courses" class="backbtn"><i class="fa fa-long-arrow-left pr-2"></i>Back</a>-->
+             </div>
+            <div class="col-md-12">
+            <div class="course-dropdown">
+                <select name="top01" id="top01">
+                    <option>Select Course</option>
+                    {% for main_course_category_list in  main_course_category_list %}
+                    <option value="{{main_course_category_list.id}}">{{main_course_category_list.title}}</option>
+                    {% endfor %}s
+                </select>
+                <select name="top02" id="top02">
+
+                </select>
+
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+    $("#top01").change(function () {
+
+      var top01 = $(this).val();
+
+      $.ajax({
+        url: 'load_main_course_category',
+        data: {
+          'main_course_category_id': top01
+        },
+        success: function (data) {
+          $("#top02").html(data);
+        }
+      });
+
+    });
+  </script>
+</div>
+            </div>
+            <div class="col-md-12">
+            <div id="id_sub_course_category_id"  class="course-sidebar-part">
+                  <div class="courseCat" id="IELTS">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                              <ul class="nav nav-pills" role="tablist">
+                             {% for list in list  %}
+                              <li class="nav-item {% if forloop.counter  == 1 %} active {% endif %}">
+                               <a class="nav-link" data-toggle="pill" href="#{{list.id}}">{{list.title}}</a>
+                             </li>
+                            {% endfor %}
+                            </ul>
+                            <!--<ul class="nav nav-pills" role="tablist">-->
+                                <!--<li class="nav-item active">-->
+                                    <!--<a class="nav-link" data-toggle="pill" href="#ielts01">ielts 01</a>-->
+                                <!--</li>-->
+                                <!--<li class="nav-item">-->
+                                    <!--<a class="nav-link" data-toggle="pill" href="#ielts02">ielts 02</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        </div>
+
+
+
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="tab-content">
+
+                             {% for list in list  %}
+                                <div id="{{list.id}}" class="tab-pane {% if forloop.counter  == 1 %} active {% endif %}">
+
+                                {% for co_list  in co_list %}
+
+
+                                {% if co_list.sub_course_category_id.id == list.id %}
+
+
+
+                                    <a href="../course-details/{{co_list.id}}/{{co_list.sub_course_category_id.id}}"><h3 class="tec-course-h3"><i class="fa fa-hand-o-right handicon"></i>{{co_list.title}}</h3></a>
+
+
+
+                                    {% endif %}
+
+
+                                {% endfor %}
+                               </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</div>
+
+
+
+        </div>
+    </div>
+</section>
+ <script>
+    $("#top02").change(function () {
+
+      var top02 = $(this).val();
+
+      $.ajax({
+        url: 'load_sub_course_category_front',
+        data: {
+          'super_course_category_id': top02
+        },
+        success: function (data) {
+        <!--alert(data);-->
+          $("#id_sub_course_category_id").html(data);
+        }
+      });
+
+    });
+  </script>
+{% include 'footer.html' %}
+<!--<script>-->
+<!--$(document).ready(function()-->
+<!--{-->
+<!--$("#top02").hide();-->
+<!--})-->
+<!--var fruit = $("[name=top02] option").detach();-->
+<!--$("[name=top01]").change(function() {-->
+ <!--$("#top02").show();-->
+  <!--var val = $(this).val()-->
+  <!--$("[name=top02] option").detach()-->
+  <!--fruit.filter("." + val).clone().appendTo("[name=top02]")-->
+<!--}).change()-->
+
+
+
+<!--</script>-->
+<!--<script>-->
+<!--$(document).ready(function () {-->
+  <!--$('.courseCat').hide();-->
+  <!--$('.default').show();-->
+  <!--$('#top02').change(function () {-->
+    <!--$('.default').hide();-->
+    <!--$('.courseCat').hide();-->
+    <!--$('#'+$(this).val()).show();-->
+  <!--})-->
+<!--});-->
+<!--$('.dropdown-menu a[data-toggle="tab"]').click(function (e) {-->
+    <!--e.stopPropagation()-->
+    <!--$(this).tab('show')-->
+<!--})-->
+
+
+<!--</script>-->

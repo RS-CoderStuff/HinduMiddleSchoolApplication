@@ -1,0 +1,119 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% for course_list in course_list %}
+{% load staticencoder %}
+<section class="tec-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                <h1>{{course_list.name}}</h1>
+                <!--<p class="white">{{course_list.details|safe|truncatechars:200}}</p>-->
+
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                <div class="course-left-part">
+                    <h3 class="heading3">Course Overview - </h3>
+                  {{course_list.details|safe}}
+            </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                <div class="course-right-part">
+                    <img src="{% encode_dynmic_image course_list.image.path %}" alt="ielts course" class="courseimg"/>
+                    <!--<img src="/uploads/{{course_list.image}}" alt="ielts course" class="courseimg"/>-->
+                    <div class="course-meta">
+                        <ul>
+                            <li><strong><i class="fa fa-file-text"></i> Course Name : </strong> {{course_list.name}}</li>
+                            <li><strong><i class="fa fa-user-circle-o"></i> Course Provider : </strong> TEC English
+                                Classes
+                            </li>
+                            <li><strong><i class="fa fa-money"></i> Price : &#x20B9; </strong> {{course_list.price}}</li>
+                            <!--<li><strong><i class="fa fa-clock-o"></i> Duration : </strong> 3 Months</li>-->
+                            <!--<li><strong><i class="fa fa-calendar-plus-o"></i> Registration Starts on : </strong> 7 Jan-->
+                                <!--2019-->
+                            <!--</li>-->
+                            <!--<li><strong><i class="fa fa-calendar-times-o"></i> Registration Ends on : </strong> 7 Dec-->
+                                <!--2019-->
+                            <!--</li>-->
+                            <!--<li><strong><i class="fa fa-check-square-o"></i> Eligibility : </strong> Must have passed-->
+                                <!--senior secondary school-->
+                                <!--and Minimum age is 16.-->
+                            <!--</li>-->
+                            <!--<li><strong><i class="fa fa-star-o"></i> Rating : </strong> 4.5/5</li>-->
+                            <!--<li><strong><i class="fa fa-university"></i> Credit : </strong> Certificate on Completion-->
+                            <!--</li>-->
+                        </ul>
+
+
+
+
+                        {% if user.is_authenticated %}
+                        <button id="rzp-button1" class="btn btn-dark course-enroll-btn"><i class="fa fa-mortar-board"></i> Buy Now</button>
+                        {% else %}
+                        <a href="/student-login?next={{ request.path }}" class="btn btn-dark course-enroll-btn"><i class="fa fa-mortar-board"></i> Buy Now</a>
+                        {% endif %}
+
+                        <div class="social-icons">
+                            <h4 class="heading4 mb-3">Share this Course <i class="fa fa-share"></i> </h4>
+                            <ul>
+                                <li class="facebook"><a href="https://www.facebook.com/tajindersenglishclasses/"
+                                                        target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li class="twitter"><a href="https://twitter.com/tajinder_s" target="_blank"><i
+                                        class="fa fa-twitter"></i></a></li>
+                                <!--<li class="linkedin"><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>-->
+                                <li class="instagram"><a href="https://www.instagram.com/tajinder_english_classes/"
+                                                         target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                <!--<li class="youtube"><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <script>
+  var options = {
+   "key": "rzp_live_2hQX2O1sphWJK4",
+   "amount": "{{amount|safe}}",
+   "currency": "INR",
+   "name": "{{course_list.name.title}}",
+   "description": "{{course_list.name.title}}",
+   "image": "/static/images/tec-logo.png",
+   "order_id": "{{order_id |safe}}",
+   "handler": function(response) {
+    location = '/paymentstatus/' + response.razorpay_payment_id;
+
+   },
+
+   "prefill": {
+    "name": "{{user_list.user_id.username}}",
+    "email": "{{user_list.user_id.email}}",
+    "contact": "{{user_list.mobile}}"
+   },
+   "notes": {
+    "address": "note value"
+   },
+   "theme": {
+    "color": "#a80f00"
+   }
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button1').onclick = function(e) {
+   rzp1.open();
+   e.preventDefault();
+  }
+
+ </script>
+
+{% endfor %}
+{% include 'footer.html' %}
+

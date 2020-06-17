@@ -1,0 +1,72 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+<script src="{% static '' %}js/popper.min.js"></script>
+<section class="tec-heading mb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>All Awards</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="store ">
+    <div class="container">
+
+        <div class="row store-items" id="store-items">
+
+            {% for list in gallery_list %}
+            <div class=" col-md-4  my-3 store-item" >
+                <a class="d-block" type="button" data-toggle="modal" data-target="#modal{{list.id}}">
+                    <div class="card single-item">
+                        <div class="img-container">
+                            <img src="/uploads/{{list.gallery_photo}}" class="card-img-top store-img img-thumbnail" alt="">
+
+                            <!-- <span class="store-item-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            </span> -->
+                        </div>
+
+
+                    </div>
+                </a>
+            </div>
+
+
+            <!-------pop up----->
+            <div class="modal fade" id="modal{{list.id}}">
+                <div class="modal-dialog award-dialog">
+                    <div class="modal-content">
+                        <!-- modal header -->
+                        <div class="modal-header  award-popup">
+
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body award-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                            <img src="/uploads/{{list.gallery_photo}}" class="card-img-top store-img" alt="">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- modal footer -->
+
+
+                    </div>
+                </div>
+            </div>
+            <!-------pop up----->
+            {% endfor %}
+
+
+        </div>
+    </div>
+</section>
+
+
+{% include 'footer.html' %}

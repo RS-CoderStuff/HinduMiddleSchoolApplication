@@ -1,0 +1,49 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+
+  <style>
+  .success-section{
+  display:flex;
+height:100vh;
+ align-items:center;
+  }
+      .plan-success-section{
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+      width:100%;
+      height:500px;
+      padding: 120px 0px;
+      }
+      .success-img{
+      display:block;
+      margin-right:auto;
+      margin-left:auto;
+      height: 115px;
+      margin-bottom:20px;
+      }
+      .success-heading{
+          font-weight: bold;
+      }
+       .success-text{
+       color: gray;
+    font-size: 18px;
+      }
+       .success-title{
+      }
+  </style>
+  <body style="font-family: 'Merriweather Sans', sans-serif;">
+  <section class="success-section">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-8 mx-auto text-center">
+                  <div class="plan-success-section">
+                     <img src="../static/images/success-2.gif" class="success-img img-fluid">
+                      <h3 class="success-heading">Payment Successfully !</h3>
+                      <h5 class="success-title">Thanks for choosing Tajinder's English Classes.</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+{% include 'footer.html' %}

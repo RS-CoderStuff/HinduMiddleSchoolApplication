@@ -1,0 +1,53 @@
+{% load static %}
+{% include 'header-blog.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+<section class="tec-blog">
+    <br/>
+    <br/>
+    <br/>
+    {% for blog_list in blog_list %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="blog-box">
+                    <h3 class="categoryheading">{{blog_list.title}}</h3>
+                     <a href="/blogs" class="backbtn"><i class="fa fa-long-arrow-left pr-2"></i>Back</a>
+                    <p class="post-meta"><strong>Posted by :</strong> {{blog_list.author.username}}  <strong>on</strong> {{blog_list.date}}</p>
+                    <div class="col-xs-12">
+                        <!--<img src=" /uploads/{{blog_list.image}}" alt="tec blog" class="singleblogimg"/></div>-->
+                       <img src="{% encode_dynmic_image blog_list.image.path %}" alt="tec blog" class="singleblogimg"/></div>
+                    <div class="col-xs-12">
+
+                      {{blog_list.details|safe}}
+                    </div>a
+                </div>
+                <!--<div class="col-xs-12">-->
+                    <!--<div class="blog-comment">-->
+                        <!--<h3 class="heading3">Post a Comment - </h3>-->
+                        <!--<form>-->
+                            <!--<div class="form-group">-->
+                                <!--<label>Name*</label>-->
+                                <!--<input type="text" class="inputfield" />-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<label>Email*</label>-->
+                                <!--<input type="email" class="inputfield" />-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<label>Your Message*</label>-->
+                                <!--<textarea class="inputfield"></textarea>-->
+                            <!--</div>-->
+                            <!--<div class="form-btn">-->
+                                <!--<input type="submit" value="Send" class="btn btn-dark"/>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            {% include 'blog-sidebar.html' %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% include 'footer.html' %}

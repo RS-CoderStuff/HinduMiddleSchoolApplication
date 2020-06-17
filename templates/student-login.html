@@ -1,0 +1,54 @@
+{% load static %}
+{% include 'header.html' %}
+<section class="user-section">
+    <div class="container">
+        <div class="row">
+            <div class="user-form">
+                <div class="tec-logo">
+                    <a class="" href="../">
+                        <img src="{% static '' %}images/LOGO.jpg" alt="Tajinder's English Classes">
+                    </a></div>
+                <h1>Sign In</h1>
+                <p class="user-text">(Fields marked with <span class="field-required">*</span> are required.)</p>
+                    <div class="container">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ message }}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+                <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group "><label> {{ field.label }}<span class="field-required">*</span> </label>
+                        {{ field }}
+                    <span style="color:red">
+                         {% for error in field.errors %}
+                        {{error}}
+                        {% endfor %}
+                        </span>
+                    </div>
+                {% endfor %}
+
+                <div class="form-btn1">
+                   <div class="row">
+                         <div class="col-6">
+                              <a href="/" class="userbtn1">Back to Home</a>
+                        </div>
+						 <div class="col-6">
+                             <input type="submit" value="Sign In" class="userbtn2"/>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <div class="form-links">
+                    <p>New User? <a href="../student-signup?next={{redirect_to}}">Create Account</a></p>
+                    <p>Forgot Password? <a href="../password_reset">Reset Here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

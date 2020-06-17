@@ -1,0 +1,48 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+<script src="{% static '' %}js/popper.min.js"></script>
+<section class="tec-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>All Awards</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<!--my section-->
+<section class="page-detail p-2  ">
+    <div class="container">
+        <div class="detail-wrapper">
+      <div class="row">
+
+
+        <div class="col-md-4">
+           <img src="{% static '' %}images/award1.jpeg" class="card-img-top store-img img-fluid" alt="" >
+         </div>
+         <div class="col-md-8">
+            <h1 class="mb-4 font-weight-bold">
+              OUR COURSES
+            </h1>
+            <p class="pr-4 text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            </p>
+         </div>
+
+      </div>
+       <div>
+       </div>
+    </div>
+
+    </div>
+  </section>
+
+{% include 'footer.html' %}

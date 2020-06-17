@@ -1,0 +1,97 @@
+    {% load static %}
+    <!--<footer class="main-footer fixed-btm">
+        Copyright &copy; 2019 All Rights Reserved.
+    </footer>-->
+
+
+    <script src="{% static '' %}admin/js/jquery.js"></script>
+    <script src="{% static '' %}admin/js/bootstrap.min.js"></script>
+    <script src="{% static '' %}admin/js/table.js"></script>
+    <!-- nav -->
+    <script src="{% static '' %}admin/js/nav.js"></script>
+    <!-- News -->
+    <script src="{% static '' %}admin/js/news.js"></script>
+    <script src="{% static '' %}admin/js/common.js"></script>
+    <script src="{% static '' %}admin/js/jquery.magicsearch.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js'></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+    <script>
+    <!--$(document).ready(function() {-->
+        <!--$('#table').DataTable( {-->
+            <!--dom: 'Bfrtip',-->
+        <!--} );-->
+    <!--} );-->
+    $(document).ready(function() {
+    $('#table').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+
+
+     </script>
+
+    <script>
+        var message = "Function Disabled";
+        function clickIE() {
+            if (document.all) {
+                alert(message);
+                return false;
+            }
+        }
+        function clickNS(e) {
+            if (document.layers || (document.getElementById && !document.all)) {
+                if (e.which == 2 || e.which == 3 || e.which == 123) {
+                    //alert(message);
+                    return false;
+                }
+            }
+        }
+        if (document.layers) {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown = clickNS;
+        }
+        else {
+            document.onmouseup = clickNS;
+            document.oncontextmenu = clickIE;
+        }
+        document.oncontextmenu = new Function("return false")
+        var isCtrl = false;
+    document.onkeyup=function(e){
+        if(e.which == 17) isCtrl=false;
+    }
+    document.onkeydown=function(e){
+        if(e.which == 17) isCtrl=true;
+        if(e.which == 85 && isCtrl == true) {
+            return false;
+        }
+    }
+    $(document).keydown(function (event) {
+        if (event.keyCode == 123) { // Prevent F12
+            return false;
+        } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+            return false;
+        }
+    });
+    $(function(){
+        $(document).keydown(function(objEvent) {
+            if (objEvent.ctrlKey) {
+                if (objEvent.keyCode == 65) {
+
+                    return false;
+                }
+            }
+        });
+    });
+    jQuery(document).ready(function($){
+        $(document).keydown(function(event) {
+            var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
+
+            if (event.ctrlKey && (pressedKey == "c" || pressedKey == "u")) {
+                return false;
+            }
+        });
+    });
+    </script>
+

@@ -1,0 +1,28 @@
+<div class="courseCat" id="IELTS">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12">
+            <ul class="nav nav-pills mb-4" role="tablist">
+                {% for list in list %}
+                <li class="nav-item {% if forloop.counter  == 1 %} active {% endif %}">
+                    <a class="nav-link" data-toggle="pill" href="#{{list.id}}">{{list.title}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="tab-content">
+                {% for list in list %}
+                <div id="{{list.id}}" class="tab-pane {% if forloop.counter  == 1 %} active {% endif %}">
+                    {% for co_list in co_list %}
+                    {% if co_list.sub_course_category_id.id == list.id %}
+                    <a href="../course-details/{{co_list.id}}/{{co_list.sub_course_category_id.id}}"><h3
+                            class="categorylistitem"><i class="fa fa-hand-o-right handicon"></i>{{co_list.title}}</h3>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

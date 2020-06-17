@@ -1,0 +1,195 @@
+{% load static %}
+{% include 'admin/admin-header.html' %}
+<!-- BEGIN .app-main -->
+<div class="app-main">
+    <!-- BEGIN .main-heading -->
+    <header class="main-heading">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-icon">
+                        <i class="icon-laptop_windows"></i>
+                    </div>
+                    <div class="page-title">
+                        <h1 class="heading1"><strong>All Users</strong></h1>
+                        <h6 class="sub-heading">View All Users</h6>
+                    </div>
+                    <div class="downloadexcel">
+                        <a href="../multi-user-edit" class="multiuserbtn">Edit Multi User</a>
+                         <button type="button" class="saveAsExcel">Export Excel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END: .main-heading -->
+     <!-- BEGIN .main-content -->
+    <div class="main-content">
+            <div class="row text-center">
+            <div class="container">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ message }}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <!-- Row start -->
+        <div class="row gutters">
+            <div class="table-responsive">
+            <table id="table" class="table table-bordered tec-table">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th> Email Address</th>
+                    <th>Mobile Number</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>User Type</th>
+                    <th>Expiry Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for list in list %}
+                <tr>
+                    <td>{{list.user_id.username}}</td>
+                    <td>{{list.user_id.first_name}} {{list.user_id.last_name}}</td>
+                    <td>{{list.user_id.email}}</td>
+                    <td>{{list.mobile}}</td>
+                    <td>{{list.city}}</td>
+                    <td>{{list.country}}</td>
+                    <td>
+
+
+
+                        {% if list.user_id.user_type == 2 %} Student  {% endif %}
+                       {% if list.user_id.user_type == 0 %} Guest  {% endif %}
+                        {% if list.user_id.user_type == 3 %} Paid {% endif %}
+                         {% if list.user_id.user_type == 1 %}Teacher  {% endif %}
+
+
+                    </td>
+                    <td>{{list.exp_date}}</td>
+                    <td class="action-btns">
+                        <div class="viewbtntype d-flex">
+                        <a title="View" data-toggle="modal" data-target="#viewdetails{{list.id}}"><i class="fa fa-eye"></i></a>
+                        <a href="/edit-user/{{list.user_id.id}}" title="Edit"><i class="fa fa-pencil"></i></a>
+                       <a href="#" title="Delete" data-toggle="modal" data-target="#confirmdelete{{list.id}}"><i class="fa fa-trash"></i></a>
+
+
+
+                            </div>
+                    </td>
+                </tr>
+
+
+                <!-- view user popup -->
+                <div class="modal" id="viewdetails{{list.id}}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-md-12"><h3 class="modal-title text-center"><strong> User Details</strong></h3></div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="viewdetails">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul>
+                                    <li><strong>Username: </strong>{{list.user_id.username}}</li>
+                                    <li><strong>First Name: </strong>{{list.user_id.first_name}} </li>
+                                    <li><strong>Last Name: </strong>{{list.user_id.last_name}}</li>
+                                    <li><strong>Email: </strong>{{list.user_id.email}}</li>
+                                    <li><strong>Phone: </strong>{{list.mobile}}</li>
+                                    <li><strong>City: </strong>{{list.city}}</li>
+                                    <li><strong>Country: </strong>{{list.country}}</li>
+                                    <li><strong>User Type: </strong>
+
+                                    {% if list.user_id.user_type == 2 %} Student  {% endif %}
+                                   {% if list.user_id.user_type == 0 %} Guest  {% endif %}
+                                    {% if list.user_id.user_type == 3 %} Paid {% endif %}
+                                     {% if list.user_id.user_type == 1 %}Teacher  {% endif %}
+
+                                    </li>
+                                      <li><strong>Registered on: </strong>{{list.user_id.date_joined}}</li>
+                                    <li><strong>Account Valid Till: </strong>{{list.exp_date}}</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+        </div>
+                <!-- view user popup -->
+                     <!-- delete popup -->
+       <div class="modal" id="confirmdelete{{list.id}}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-md-12"><h3 class="modal-title text-center"><strong>Do you want to delete this?</strong></h3></div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Select "Delete" option if you want to delete this , otherwise select "Cancel" option.</p>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="/delete_user/{{list.user_id.id}}" class="btn btn-danger">Delete</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+        </div>
+                <!-- delete popup -->
+       {% endfor %}
+
+                </tbody>
+            </table>
+     </div>
+        </div>
+        <!-- Row end -->
+        <div class="spacer30"></div>
+    </div>
+    <!-- main-content -->
+</div>
+
+
+
+{% include 'admin/admin-footer.html' %}
+
+<script>
+  $(document).ready(function(){
+    $(".saveAsExcel").click(function(){
+        var workbook = XLSX.utils.book_new();
+
+        //var worksheet_data  =  [['hello','world']];
+        //var worksheet = XLSX.utils.aoa_to_sheet(worksheet_data);
+
+        var worksheet_data  = document.getElementById("table");
+        var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
+
+        workbook.SheetNames.push("Test");
+        workbook.Sheets["Test"] = worksheet;
+
+         exportExcelFile(workbook);
+
+
+    });
+})
+
+function exportExcelFile(workbook) {
+    return XLSX.writeFile(workbook, "Userlist.xlsx");
+}
+</script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.12.13/xlsx.full.min.js'></script>

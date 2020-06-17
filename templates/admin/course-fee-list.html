@@ -1,0 +1,108 @@
+{% load static %}
+{% include 'admin/admin-header.html' %}
+<!-- BEGIN .app-main -->
+<div class="app-main">
+    <!-- BEGIN .main-heading -->
+    <header class="main-heading">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-icon">
+                        <i class="fa fa-list-ul"></i>
+                    </div>
+                    <div class="page-title">
+                        <h1 class="heading1"><strong>Course Fee List</strong></h1>
+                        <h6 class="sub-heading">View Course Fee List</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END: .main-heading -->
+    <!-- BEGIN .main-content -->
+    <div class="main-content">
+        <!-- Row start -->
+        <div class="row gutters">
+            <table id="table" class="table table-bordered tec-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email Address</th>
+                    <th>Mobile Number</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Raj</td>
+                    <td>Raj@test.com</td>
+                    <td>78676786</td>
+                    <td class="action-btns">
+                        <a title="View" data-toggle="modal" data-target="#viewdetails"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="#" title="Delete" data-target="#confirmdelete" data-toggle="modal"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Row end -->
+        <div class="spacer30"></div>
+    </div>
+    <!-- main-content -->
+</div>
+</div>
+<!-- view user popup -->
+<div class="modal" id="viewdetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-12"><h3 class="modal-title text-center"><strong>Fee Details</strong></h3></div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="viewdetails">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul>
+                                <li><strong>Name: </strong>Raj</li>
+                                <li><strong>Email: </strong>Raj@test.com</li>
+                                <li><strong>Phone: </strong>567567567</li>
+                                <li><strong>Address: </strong>Mohali</li>
+                                  <li><strong>Amount: </strong>4545</li>
+                                <li><strong>Paid on: </strong>15 Nov 2019</li>
+                                <li><strong>Account Valid Till: </strong>1 Dec 2019</li>
+                                <li><strong>Status: </strong>Active</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- view user popup -->
+<!-- delete popup -->
+<div class="modal" id="confirmdelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-12"><h3 class="modal-title text-center"><strong>Do you want to delete this?</strong></h3></div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select "Delete" option if you want to delete this , otherwise select "Cancel" option.</p>
+
+            </div>
+            <div class="modal-footer">
+                <a href="/delete-faqs/{{list.id}}" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete popup -->
+{% include 'admin/admin-footer.html' %}

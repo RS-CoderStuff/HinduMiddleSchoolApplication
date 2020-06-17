@@ -1,0 +1,302 @@
+
+{% load static %}
+{% load  staticencoder %}
+{% include 'header.html' %}
+
+<video id="tec-background-video" height="20%" autoplay="autoplay"  loop="loop" autobuffer="autobuffer" muted="muted"
+>
+
+
+ <source  src="{% video_encode_static 'images/Play.mp4' %}" type="video/mp4" >
+</video>
+
+{% include 'nav.html' %}
+
+
+<section id="courses" class="section">
+    <div class="container">
+        <div class="section-header">
+            <br/>
+            <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">Introduction of School</h2>
+            <hr class="lines wow zoomIn" data-wow-delay="0.3s">
+             <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6" >
+            <p class="section-subtitle wow fadeIn"  data-wow-duration="1000ms" data-wow-delay="0.3s">
+              <b>
+                  <ul class="bold" style="color:black">
+            <br/><li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+Everything blossoms in its own time. The foundation of Hindu Middle School, abheypur Panchkula was laid in 1882 by the founder of the Hindu Educational Society - Late Sardar Gurdev Singh Manipur (Advocate) and General Secretary Sardar Kuldeep Singh (Advocate).The Co-education School is Recognised by the Haryana Education Department. The school receives no Government or private aid and fees are its only income. Hence, fees have to be adjusted from time to time to keep up, with the rising costs and salaries. The School is in a triple storey building having around 20 rooms. It is also furnished with a library , multi- use laboratory and a creativity room to comfort various needs of children.
+            </li> <br/>
+                <br/>
+
+<li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+Our objective is to promote total development of the students so as to be fully human, intellectually competent, morally sound, spiritually oriented, loving, caring and committed to the cause of justice and truth, being actively concerned about national development.
+</li><br/>
+                <br/>
+                  <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+The aim of school is to make its pupils cultured and useful members of society and it(Aim) can be summed in one line
+                      "Preparing Student for life"</li></ul></b></p>
+            </div>
+                  <div class="col-sm-1-col-md-1 col-lg-1"></div>
+<div class="col-sm-5 col-md-5 col-lg-5" style="background: aquamarine;" >
+            <p class="section-subtitle wow fadeIn"  data-wow-duration="1000ms" data-wow-delay="0.3s">
+              <b>  <br/>
+<i class="fa fa-hand-o-right pr-3 handicon"></i>Notice Board:
+                 <p class="section-subtitle wow fadeIn"  data-wow-duration="1000ms" data-wow-delay="0.100s">
+    <marquee direction="down" height="380" width="400" bgcolor="white">
+        <ul class="bold">
+            <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+                            Admission open for the session 2020-21.
+                        </li>
+            <br/>
+             <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+                            No Admission Fees.
+                        </li>
+            <br/>
+              <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+                            Parents Requested to Buy books from the book Centre.
+                        </li>
+            <br/>
+              <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+                            Parents Requested to Buy books from the book Centre.
+                        </li>
+            <br/>
+              <li class="feature-item"><i class="fa fa-hand-o-right pr-3 handicon"></i>
+                            Admission open for the session 2020-21.
+                        </li>
+            <br/>
+
+        </ul>
+
+
+    </marquee>
+</p>
+<br/>
+                <br/></p>
+            </div>
+
+             </div>
+        </div>
+
+    </div>
+</section>
+<section id="features" class="section" data-stellar-background-ratio="0.2">
+    <div class="container">
+        <div class="feature-section">
+            <br/>
+            <h2 class="feature-section-title"><b>PRINCIPAL MESSAGE</b></h2>
+            <hr class="fiture-lines">
+            <div class="row">
+                <div class="col-md-5">
+<ul class="feature-list">
+                        <li class="feature-item">
+                             <img src="{% image_encode_static 'images/team1.jpg' %}">
+                        </li>
+    </ul>
+                </div>
+                <div class="col-md-7">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <b> <p><i>"Education is the most powerful weapon which you can use to change the world" </br>APJ Abdul Kalam</i></p>
+
+
+
+                            <p>"Message"</p>
+It gives immense pleasure to assert that Hindu Middle School Abheypur ,Panchkula has helped to unfold the promise of a better tomorrow, aiming the students to meet challenges of future.According to me education should  be fun filled and not threatening. An activity oriented teaching is a must as this keeps that students agog and help and respect their teachers and school.Instead of rote learning children should explore beyond the text and study for the sake of knowledge and not just of prizes or certificates. This kind of education will imbibe skills in the young minds to become holistic individuals.
+                                Keeping pace with the changing times and the ever evolving educational scenario, we at <h4>Hindu Middle School,</h4> aim to infuse our students with a curiosity for knowledge along with a quest for education and skills for future employee abilities.
+<br/>
+                            <br/>
+<p>Sunita Rani
+    <br/>(B.A,B.ED)
+<br/>Principal
+<br/>Hindu Middle School</p>
+                               </b>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="awards" class="section">
+    <div class="container">
+        <br/>
+        <div class="section-header wow fadeInDown" data-wow-delay="1s">
+            <h2 class="section-title">Awards</h2>
+            <hr class="lines">
+
+        </div>
+        <div class="row">
+            <div id="portfolio" class="row">
+                {% for gallery_list in gallery_list %}
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mix development print wow fadeInDown"
+                     data-wow-delay="1s">
+                    <div class="portfolio-item">
+                        <div class="shot-item">
+                            <img src="{% encode_dynmic_image  gallery_list.gallery_photo.path %}"
+                                 alt="School Topper Batch Wise"/>
+                            <a class="overlay lightbox" href="uploads/{{gallery_list.gallery_photo}}">
+                                <i class="fa fa-eye item-icon"></i>
+                            </a>
+                            <p> <b><span> <class="date">Award To -: {{gallery_list.alternate_text}}</span></b></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="awarbtnmore">
+            <a href="/all-awards" class="awardsbtn ">View All Awards</a>
+                </div>
+        </div>
+    </div>
+</section>
+<section id="apply-visa">
+    <div class="container">
+    </div>
+</section>
+<section id="blog" class="section">
+    <!--blog section-->
+    <br/>
+    <div class="container mb-5">
+        <div class="section-header">
+            <h2 class="wow zoomIn section-title" data-wow-duration="1000ms" data-wow-delay="100ms">Management Team</h2>
+            <hr class="lines">
+            <p class="section-subtitle wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms"></p>
+        </div>
+        <div class="row">
+            {% for blog_list in blog_list %}
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-item wow fadeInDown" data-wow-delay="1.2s">
+                <div class="blog-item-wrapper">
+                    <div class="blog-item-img">
+                        <a href="../blog/{{blog_list.slug}}"><img src="{% encode_dynmic_image  blog_list.image.path %}" alt="TEC blog" style="height:220px;"></a>
+                    </div>
+                    <div class="blog-item-text">
+                        <div class="meta-tags">
+<!--                            <span class="date">Posted by -: {{blog_list.author.username}} {{blog_list.date}}</span>-->
+                        </div>
+                        <h3>
+                            <a href="../blog/{{blog_list.slug}}">{{blog_list.title}}</a>
+                        </h3>
+                        <p>
+                            {{blog_list.details|safe|truncatechars:200}}
+                        </p>
+                        <a href="../blog/{{blog_list.slug}}" class="btn-rm">Read More <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="view-all col-md-12">
+                <a href="../blogs" class="viewblogbtn2">View All</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section id="contact" class="section" data-stellar-background-ratio="-0.2">
+    <br/>
+    <div class="contact-form wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="100ms">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <div class="contact-us">
+                        <h3>Contact With Us</h3>
+                        <hr/>
+                        <div class="contact-address">
+                            <h5 class="heading5">Office Contact</h5>
+                            <p class="phone">Mobile Number: <span>+91 9855014889</span></p>
+                            <p class="email">Email Address: <span>HinduMiddleSchool01@gmail.com</span></p>
+                            <hr/>
+                            <h5 class="heading5">Admission Query</h5>
+                            <p class="phone">Mobile Number: <span>+91 9814814889, +91 9877026077 </span></p>
+                            <p class="email">Email Address: <span>HinduMiddleSchool01@gmail.com</span></p>
+                             <hr/>
+                            <h3>Business Hours</h3>
+                            <ul>
+                                <li><strong>Monday - Saturday : </strong>7:30 am to 2:00 pm(Summer)</li>
+                                <li><strong>Monday - Saturday : </strong>8:15 am to 2:15 pm(Winter)</li>
+                                <li><strong>Sunday : </strong>Closed</li>
+                            </ul>
+                        </div>
+                        <!--<div class="business-hours">-->
+
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <div class="contact-block">
+
+                        <h4 id="course____"></h4>
+
+<form id="contactform">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Name</label>
+
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" id="email" class="form-control"
+                                               name="email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>How Did You Find Us?</label>
+                                        <select class="form-control" name="find" id="find">
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Twitter">Twitter</option>
+                                            <option value="Newspaper">Newspaper</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Your Message</label>
+                                        <textarea class="form-control" name="message" id="message"
+                                                  required></textarea>
+                                    </div>
+                                    <div class="submit-button text-center">
+                                        <button class="btn btn-common" id="submit" type="submit">Send Message</button>
+                                        <!--<div id="msgSubmit" class="h3 text-center hidden"></div>-->
+                                        <!--<div class="clearfix"></div>-->
+                                    </div>
+                                     <div class="social-icons">
+                        </div>
+                                </div>
+                            </div>
+                        </form>
+                        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                        <script>
+                        $("#contactform").on("submit", function (e) {
+                            e.preventDefault();
+
+
+                              $.ajax({
+                               type: "POST",
+                                url: 'Contact_us_save',
+                                data:  $('#contactform').serialize(),
+                                success: function (data) {
+                                <!--alert(data);-->
+                                  $("#course____").html(data);
+                                  document.getElementById("contactform").reset();
+
+                                }
+                              });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'footer.html' %}

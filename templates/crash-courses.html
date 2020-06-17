@@ -1,0 +1,46 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'nav2.html' %}
+{% load staticencoder %}
+<section class="tec-heading ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Crash Courses</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="courses" class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        </div>
+        <div class="row">
+
+
+       {% for course_list in course_list %}
+            <div class="col-md-4 col-sm-6 col-lg-4 col-xs-12">
+                <div class="item-boxes wow fadeInDown" data-wow-delay="1.2s">
+                    <div>
+
+                         <img src="{% encode_dynmic_image course_list.image.path %}" alt="ielts course" class="home-course-img"/></div>
+                        <!--<img src="/uploads/{{course_list.image}}" alt="ielts course" class="home-course-img" /></div>-->
+                    <div class="course-info">
+                        <h3 class="heading3">{{course_list.name}}</h3>
+                        <p class="course-price"><strong>Price - </strong>{{course_list.price}}</p>
+                        <!--<p class="course-duration"><strong>Duration - </strong> 3 Months</p>-->
+                        <!--<p class="course-register-expiry"><strong>Registration Ends on - </strong> 7 Dec 2019</p>-->
+                        <p class="course-description"><strong>Description - </strong> {{course_list.details|safe|truncatechars:200}} </p>
+                    </div>
+                    <a href="/buy-course/{{course_list.id}}" class="btn btn-dark buy-course-btn">Enroll Now</a>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+</section>
+{% include 'footer.html' %}

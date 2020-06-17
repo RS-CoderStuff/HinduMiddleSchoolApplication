@@ -1,0 +1,33 @@
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="blog-sidebar">
+        <!--<div class="sidebar-container">-->
+            <!--<h4 class="heading4">Search Posts</h4>-->
+            <!--<form>-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" placeholder="Search posts" class="inputfield"/>-->
+                    <!--<button type="submit" class="searchbtn">Search</button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+
+        <div class="sidebar-container">
+            <h4 class="heading4">Recent Posts</h4>
+            <ul>
+                {% for recent_blog_list in recent_blog_list %}
+
+                <li><a href="/blog/{{recent_blog_list.slug}}"><i class="fa fa-hand-o-right"></i> {{recent_blog_list.title}}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <!--<div class="sidebar-container">-->
+            <!--<h4 class="heading4">Categories</h4>-->
+            <!--<ul>-->
+                <!--<li><a href="#"><i class="fa fa-hand-o-right"></i> Blog Category #1</a></li>-->
+                <!--<li><a href="#"><i class="fa fa-hand-o-right"></i> Blog Category #2</a></li>-->
+                <!--<li><a href="#"><i class="fa fa-hand-o-right"></i> Blog Category #3</a></li>-->
+                <!--<li><a href="#"><i class="fa fa-hand-o-right"></i> Blog Category #4</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+</div>
