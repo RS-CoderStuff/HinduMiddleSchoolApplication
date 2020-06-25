@@ -114,19 +114,19 @@ class Student_Sign_Up(SuccessMessageMixin,CreateView):
             user_profile.country = country.name
             user_profile.exp_date = datetime.date.today() + datetime.timedelta(days=1)
             user_profile.save()
-            # to_email = form.cleaned_data.get('email')
-            #  username = form.cleaned_data.get('username')
-            # current_site = get_current_site(request)
-            # use_https = False
-            # d = ({'email': to_email,'username':username, 'WEB_SITE_URL': WEB_SITE_URL})
-            # plaintext = get_template('email-template/email.txt')
-            # htmly = get_template('email-template/welcome.html')
-            # subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, to_email
-            # text_content = plaintext.render(d)
-            # html_content = htmly.render(d)
-            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            # msg.attach_alternative(html_content, "text/html")
-            # msg.send()
+            to_email = form.cleaned_data.get('email')
+            username = form.cleaned_data.get('username')
+            current_site = get_current_site(request)
+            use_https = False
+            d = ({'email': to_email,'username':username, 'WEB_SITE_URL': WEB_SITE_URL})
+            plaintext = get_template('email-template/email.txt')
+            htmly = get_template('email-template/welcome.html')
+            subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, to_email
+            text_content = plaintext.render(d)
+            html_content = htmly.render(d)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            #msg.send()
             if redirect_to != '':
                 return redirect(redirect_to)
             else:
@@ -184,7 +184,8 @@ def index(request):
     course_list = Course_Db.objects.all().order_by('-id')[:6]
     return render(request , 'index.html',locals())
 
-
+def policy(request):
+    return render(request , 'policy.html',locals())
 
 
 def blog(request):
@@ -235,15 +236,15 @@ def paymentstatus(request,pair):
     description = resp['description']
     email = resp['email']
     print(email,description)
-    # d = ({'email': email, 'username': request.user.username, 'WEB_SITE_URL': WEB_SITE_URL})
-    # plaintext = get_template('email-template/email.txt')
-    # htmly = get_template('email-template/payment-succuss-email.html')
-    # subject, from_email, to = "Welcome To Tajinder's English Classes Payment Successfully !", settings.DEFAULT_FROM_EMAIL, email
-    # text_content = plaintext.render(d)
-    # html_content = htmly.render(d)
-    # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    # msg.attach_alternative(html_content, "text/html")
-    # msg.send()
+    d = ({'email': email, 'username': request.user.username, 'WEB_SITE_URL': WEB_SITE_URL})
+    plaintext = get_template('email-template/email.txt')
+    htmly = get_template('email-template/payment-succuss-email.html')
+    subject, from_email, to = "Welcome To Tajinder's English Classes Payment Successfully !", settings.DEFAULT_FROM_EMAIL, email
+    text_content = plaintext.render(d)
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    #msg.send()
 
 
     # print(rp_id,rp_order_id )
@@ -381,19 +382,19 @@ class Sign_Up(SuccessMessageMixin,CreateView):
             user_profile.country = country.name
             user_profile.exp_date = datetime.date.today() + datetime.timedelta(days=1)
             user_profile.save()
-            # to_email = form.cleaned_data.get('email')
-            # username = form.cleaned_data.get('username')
-            # current_site = get_current_site(request)
-            # use_https = False
-            # d = ({'email': to_email,'username':username, 'WEB_SITE_URL': WEB_SITE_URL})
-            # plaintext = get_template('email-template/email.txt')
-            # htmly = get_template('email-template/welcome.html')
-            # subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, to_email
-            # text_content = plaintext.render(d)
-            # html_content = htmly.render(d)
-            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            # msg.attach_alternative(html_content, "text/html")
-            # msg.send()
+            to_email = form.cleaned_data.get('email')
+            username = form.cleaned_data.get('username')
+            current_site = get_current_site(request)
+            use_https = False
+            d = ({'email': to_email,'username':username, 'WEB_SITE_URL': WEB_SITE_URL})
+            plaintext = get_template('email-template/email.txt')
+            htmly = get_template('email-template/welcome.html')
+            subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, to_email
+            text_content = plaintext.render(d)
+            html_content = htmly.render(d)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            #msg.send()
             return render(request, 'account-verify.html', locals())
         return render(request, self.template_name, locals())
     def get(self, request, *args, **kwargs):
@@ -410,16 +411,16 @@ class Contact_us_save(View):
         if form.is_valid():
             email = form.cleaned_data['email']
             form.save()
-            # d = ({'email': email,'WEB_SITE_URL':WEB_SITE_URL})
-            # plaintext = get_template('email-template/email.txt')
-            # htmly = get_template('email-template/confirm-contact.html')
-            # subject, from_email, to = "Welcome To Tajinder's English Classes. Thank you for Contact us", settings.DEFAULT_FROM_EMAIL, email
-            # text_content = plaintext.render(d)
-            # html_content = htmly.render(d)
-            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            # msg.attach_alternative(html_content, "text/html")
-            # msg.send()
-            # messages.success(request, "Thank you for Contact us")
+            d = ({'email': email,'WEB_SITE_URL':WEB_SITE_URL})
+            plaintext = get_template('email-template/email.txt')
+            htmly = get_template('email-template/confirm-contact.html')
+            subject, from_email, to = "Welcome To Tajinder's English Classes. Thank you for Contact us", settings.DEFAULT_FROM_EMAIL, email
+            text_content = plaintext.render(d)
+            html_content = htmly.render(d)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            #msg.send()
+            messages.success(request, "Thank you for Contact us")
             return render(request, self.template_name, locals())
         messages.success(request, "Something went wrong")
         return render(request,self.template_name,locals())
@@ -428,16 +429,15 @@ class Contact_us_save(View):
 
 
 def register_send_mails(emails):
-    print("commenting the functionality")
-    # d = ({'email': emails,'WEB_SITE_URL':WEB_SITE_URL})
-    # plaintext = get_template('email-template/email.txt')
-    # htmly = get_template('email-template/welcome.html')
-    # subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, emails
-    # text_content = plaintext.render(d)
-    # html_content = htmly.render(d)
-    # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    # msg.attach_alternative(html_content, "text/html")
-    # msg.send()
+    d = ({'email': emails,'WEB_SITE_URL':WEB_SITE_URL})
+    plaintext = get_template('email-template/email.txt')
+    htmly = get_template('email-template/welcome.html')
+    subject, from_email, to = "Welcome To Tajinder's English Classes", settings.DEFAULT_FROM_EMAIL, emails
+    text_content = plaintext.render(d)
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    #msg.send()
 
 
 def activate(request, uidb64, token):
