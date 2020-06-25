@@ -184,7 +184,8 @@ def index(request):
     course_list = Course_Db.objects.all().order_by('-id')[:6]
     return render(request , 'index.html',locals())
 
-
+def policy(request):
+    return render(request , 'policy.html',locals())
 
 
 def blog(request):
