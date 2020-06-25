@@ -41,6 +41,7 @@ urlpatterns = [
 
     url(r'^aaa', views.aaa, name='aaa'),
     url(r'^$', views.index, name='index'),
+    url('policy/', views.policy, name='policy'),
     url(r'^blogs', views.blog, name='blogs'),
     url(r'^blog/(?P<slug>[-\w\d]+)', views.blog_details, name='blog_details'),
 
