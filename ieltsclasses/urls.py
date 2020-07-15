@@ -40,7 +40,7 @@ urlpatterns = [
     url('rest-auth/', include('rest_auth.urls')),
 
     url(r'^aaa', views.aaa, name='aaa'),
-    url(r'^$', views.index, name='index'),
+#    url(r'^$', views.index, name='index'),
     url('policy/', views.policy, name='policy'),
     url(r'^blogs', views.blog, name='blogs'),
     url(r'^blog/(?P<slug>[-\w\d]+)', views.blog_details, name='blog_details'),
@@ -59,12 +59,12 @@ urlpatterns = [
     # url(r'^crash-courses', views.crash_courses, name='crash_courses'),
     # url(r'^course-details/(?P<pk>\d+)/(?P<sub_id>\d+)', views.course_details, name='course_details'),
 
-    url(r'^sign-in', views.sign_in, name='sign_in'),
+    url(r'^$', views.sign_in, name='sign_in'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
-    url(r'^sign-up', views.Sign_Up.as_view(), name='sign_up'),
+   # url(r'^sign-up', views.Sign_Up.as_view(), name='sign_up'),
     url(r'^Contact_us_save', views.Contact_us_save.as_view(), name='Contact_us_save'),
-    url(r'^logout', auth_views.LogoutView, {'next_page': '/'}, name='logout'),
+    url(r'^logout', auth_views.LogoutView.as_view(), name='logout'),
 
 
     #######################################
@@ -211,6 +211,9 @@ urlpatterns = [
     url(r'^edit-plan/(?P<pk>\d+)', views.Edit_Plans.as_view(), name='edit_plan'),
     url(r'^delete_plan/(?P<pk>\d+)', views.Delete_Plan.as_view(), name='delete_plan'),
     # blog
+
+    #Enchancement
+    url('load_user/', views.load_user, name='load_user'),
 
     # admin URLs end
 # ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,8 @@
+<select name="students" id="id_students" multiple>
+{% for list in userList %}
+<option value="{{ list.id }}">{{ list.username }} -> {% if list.user_type == 2 %} Student  {% endif %}
+                       {% if list.user_type == 0 %} Guest  {% endif %}
+                        {% if list.user_type == 3 %} Paid {% endif %}
+                         {% if list.user_type == 1 %}Teacher  {% endif %}</option>
+{% endfor %}
+  </select>

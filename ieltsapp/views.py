@@ -15,6 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from PyODConverter import DocumentConverter
 from pdf2image import convert_from_path
 from fcm_django.models import FCMDevice
+from django.db.models import Q
 import datetime
 
 from apiapp.tokens import account_activation_token
@@ -794,6 +795,18 @@ def load_sub_course_category(request):
     print(super_course_category_id)
     list = Sub_Course_Category_Db.objects.filter(super_course_category_id=super_course_category_id)
     return render(request, 'admin/main_course_category_dropdown.html',locals())
+
+def load_user(request):
+    main_course_category_id = request.GET.get('main_course_category_id')
+    print(main_course_category_id)
+    if main_course_category_id =='':
+        userList = User.objects.filter(user_type__in = [1,2])
+    else:
+        list = User_Profile.objects.filter(main_course_category_id=main_course_category_id)
+        userList = User.objects.filter(Q(user_profile__in=list) | Q(user_type=1)).order_by('user_type')
+    for ls in userList:
+        print(ls.username, ls.user_type)
+    return render(request, 'admin/user_dropdown.html',locals())
 
 
 

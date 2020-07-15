@@ -594,11 +594,15 @@ class Batch_Form(forms.ModelForm):
     description = forms.CharField(required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield"}))
     start_time = forms.CharField(label='Start Time',required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield input-small timepicker"}))
     end_time = forms.CharField(label='End Time',required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield input-small timepicker"}))
-    students = forms.ModelMultipleChoiceField(required=True,queryset=User.objects.filter(user_type=2),widget=autocomplete.ModelSelect2Multiple(url='country-autocomplete',attrs={'class': "inputfield"}))
-    # students = forms.ModelMultipleChoiceField(queryset=User.objects.all(),widget=forms.SelectMultiple(attrs={'class': "inputfield"}))
+    #students = forms.ModelMultipleChoiceField(required=True,queryset=User.objects.filter(user_type=2),widget=autocomplete.ModelSelect2Multiple(url='country-autocomplete',attrs={'class': "inputfield"}))
+    classes = forms.ModelChoiceField(label='Category',required=False,
+                                                      queryset=Main_Course_Category_Db.objects.all(),
+                                                      empty_label="All User",
+                                                      widget=forms.Select(attrs={'class': "inputfield"}))
+    students = forms.ModelMultipleChoiceField(label='Users',queryset=User.objects.filter(user_type__in = [1,2]),widget=forms.SelectMultiple(attrs={'class': "inputfield"}))
     class Meta:
         model = Batch_Db
-        fields = ['name', 'description', 'start_time', 'end_time', 'students']
+        fields = ['name', 'description', 'start_time', 'end_time', 'classes', 'students']
     def __init__(self, *args, **kwargs):
         super(Batch_Form, self).__init__(*args, **kwargs)
 

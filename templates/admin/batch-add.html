@@ -85,6 +85,15 @@
                      {% endfor %}
                     </p>                </div>
                 <div class="form-group ">
+                    <label>{{form.classes.label}}</label>
+                    {{form.classes}}
+                    <p style="color:red">
+                    {% for error in form.classes.errors %}
+                     {{error}}
+                     {% endfor %}
+                    </p>
+                </div>
+                <div class="form-group ">
                     <label>{{form.students.label}}</label>
                     {{form.students}}
                     <p style="color:red">
@@ -172,4 +181,21 @@ $('.timepicker').datetimepicker({
 })
 
 </script>
+<script>
+    $("#id_classes").change(function () {
+
+      var classes = $(this).val();
+
+      $.ajax({
+        url: 'load_user',
+        data: {
+          'main_course_category_id': classes
+        },
+        success: function (data) {
+          $("#id_students").html(data);
+        }
+      });
+
+    });
+  </script>
 
