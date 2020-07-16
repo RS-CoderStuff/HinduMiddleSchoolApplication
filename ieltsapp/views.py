@@ -899,6 +899,8 @@ class Add_Course_Content(SuccessMessageMixin,LogoutIfNotStaffMixin,CreateView):
                        pdf.output(ext[0] + '.pdf')
                        bbb_1 = ext[0].replace(BASE_DIR + '/uploads/', '')
                        self.model.objects.filter(id=xxx.id).update(pdf=bbb_1 + '.pdf')
+                   elif smart_str(ext[1]) == 'jpg' or smart_str(ext[1]) == 'png':
+                       print("Successfully save");
                    else:
                        listener = ('127.0.0.1', 2002)
                        converter = DocumentConverter(listener)

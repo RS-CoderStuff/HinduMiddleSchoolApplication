@@ -503,7 +503,7 @@ class Course_Content_Form(forms.ModelForm):
     sub_course_category_id = forms.ModelMultipleChoiceField(label='Course Category',required=True,queryset=Sub_Course_Category_Db.objects.all(),widget=autocomplete.ModelSelect2Multiple(url='Sub_course_category_Autocomplete',attrs={'class': "inputfield"}))
     title = forms.CharField(required=True,max_length=100,widget=forms.TextInput(attrs={'class': "inputfield"}))
     image = forms.ImageField(label='Image',required=False,)
-    pdf = forms.FileField(required=False,label='(.docx, .pptx, .pdf,.txt)')
+    pdf = forms.FileField(required=False,label='(.docx, .pptx, .pdf,.txt,.jpg,.png)')
     details = forms.CharField(required=False, max_length=3000, widget=forms.Textarea(attrs={'class': "form-control",'cols':''}))
     video2 = forms.FileField(required=False,label='(mp3 OR mp4)')
     type = forms.CharField(max_length=10,required=False)
@@ -527,7 +527,7 @@ class Course_Content_Form(forms.ModelForm):
             xxx =smart_str(pdf)
             ext = xxx.split('.')
             print(ext)
-            valid_extensions = ['docx', 'pptx', 'pdf','txt']
+            valid_extensions = ['docx', 'pptx', 'pdf','txt','jpg','.png']
             print(ext[1].lower())
             if not ext[1].lower()  in valid_extensions:
                 raise forms.ValidationError('Unsupported file extension.')
