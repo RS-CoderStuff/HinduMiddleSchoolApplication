@@ -527,7 +527,7 @@ class Course_Content_Form(forms.ModelForm):
             xxx =smart_str(pdf)
             ext = xxx.split('.')
             print(ext)
-            valid_extensions = ['docx', 'pptx', 'pdf','txt','jpg','.png']
+            valid_extensions = ['docx', 'pptx', 'pdf','txt','jpg','png']
             print(ext[1].lower())
             if not ext[1].lower()  in valid_extensions:
                 raise forms.ValidationError('Unsupported file extension.')
