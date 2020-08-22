@@ -126,7 +126,9 @@ class Batch_Db(models.Model):
     description = models.CharField(max_length=1000)
     start_time = models.CharField(max_length=1000)
     end_time = models.CharField(max_length=1000)
+    category  = models.ForeignKey(Main_Course_Category_Db,related_name='category',on_delete=models.CASCADE,null=True,blank=True)
     students = models.ManyToManyField(User,null=True,blank=True)
+    teachers = models.ManyToManyField(User,null=True,blank=True,related_name='teachers')
     date = models.DateTimeField(auto_now_add=True)
     class Meta:
         db_table = 'Batch_Db'
@@ -276,6 +278,9 @@ class Plan_Db(models.Model):
     def __str__(self):
         return self.name
 
-
+class batch_kliye(models.Model):
+    name  = models.CharField(max_length=100)
+    class Meta:
+        db_table = 'batch_kliye'
 
 

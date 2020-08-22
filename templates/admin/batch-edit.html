@@ -1,6 +1,8 @@
 {% load static %}
 {% include 'admin/admin-header.html' %}
 <!-- BEGIN .app-main -->
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+
 <div class="app-main">
     <!-- BEGIN .main-heading -->
     <header class="main-heading">
@@ -44,7 +46,7 @@
 
         <!-- Row start -->
         <div class="row gutters">
-            <form  method="post" enctype="multipart/form-data" class="admin-form">
+            <form  method="post" id="editBatch" enctype="multipart/form-data" class="admin-form" >
              {% csrf_token %}
               {{ form.media }}
 
@@ -83,16 +85,17 @@
                      {{error}}
                      {% endfor %}
                     </p>                </div>
-                <div class="form-group ">
-                    <label>{{form.classes.label}}</label>
-                    {{form.classes}}
-                    <p style="color:red">
-                    {% for error in form.classes.errors %}
+
+                <div class="form-group">
+                    <label>{{form.category.label}}</label>
+                    {{form.category}}
+                   <p style="color:red">
+                    {% for error in form.category.errors %}
                      {{error}}
                      {% endfor %}
-                    </p>
-                </div>
-                <div class="form-group">
+                    </p>                </div>
+
+                <div class="form-group" id="students_list">
                     <label>{{form.students.label}}</label>
                     {{form.students}}
                     <p style="color:red">
@@ -101,7 +104,15 @@
                      {% endfor %}
                     </p>
                 </div>
-
+                <div class="form-group " id="">
+                    <label>{{form.teachers.label}}</label>
+                    {{form.teachers}}
+                    <p style="color:red">
+                    {% for error in form.teachers.errors %}
+                     {{error}}
+                     {% endfor %}
+                    </p>
+                </div>
                 <div class="col-md-12 form-btn">
                     <input type="submit" value="Submit" class="btn btn-danger form-save-btn"/>
                 </div>
@@ -114,7 +125,6 @@
 </div>
 <!-- END: .app-main -->
 
-<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 
 <!-- END: .app-container -->
 {% include 'admin/admin-footer.html' %}
@@ -141,19 +151,50 @@ $('.timepicker').datetimepicker({
 
 </script>
 <script>
-    $("#id_classes").change(function () {
+var token = '{{csrf_token}}';
+var categoryID=0;
+$("#id_category").change(function (e) {
+      var categoryID = $(this).val();
+      var catID=categoryID;
+      e.preventDefault();
+  $.ajax({
+  headers: { "X-CSRFToken": token },
+  type: 'GET',
+  url: '/get_main_course_id/' + catID,
+	data: catID,
+	contentType: false,
+    cache: false,
+    processData:false,
+	success: function(data) {
+	console.log("success message ....");
+	$("#students_list").html(data);
+	},
+	error: function() {
+	console.log("error");
+	}
+	});
+	});
+</script>
+<!--<script>-->
+<!--var categoryID=0;-->
 
-      var classes = $(this).val();
+<!--$("#id_category").on('change',function(){-->
+<!--alert("test");-->
+    <!--categoryID=$(this).val();-->
+      <!--var catID=categoryID;-->
+      <!--$.ajax({-->
+       <!--type:'GET',-->
+       <!--url:'/get_main_course_id/' + CatID,-->
 
-      $.ajax({
-        url: 'load_user',
-        data: {
-          'main_course_category_id': classes
-        },
-        success: function (data) {
-          $("#id_students").html(data);
-        }
-      });
+       <!--success:function(result){-->
+        <!--alert("done");-->
 
-    });
-  </script>
+      <!--});-->
+
+
+    <!--}); });-->
+
+<!--</script>-->
+
+
+

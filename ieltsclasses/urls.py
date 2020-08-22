@@ -29,6 +29,7 @@ from django.views.static import serve
 urlpatterns = [
 
     url(r'^country-autocomplete/$', views.CountryAutocomplete.as_view(), name='country-autocomplete', ),
+    url(r'^teacher-autocomplete/$', views.TeacherAutocomplete.as_view(), name='teacher-autocomplete', ),
     url(r'^Course_Content_Autocomplete/$', views.Course_Content_Autocomplete.as_view(), name='Course_Content_Autocomplete', ),
     url(r'^Multi_User_Autocomplete/', views.Multi_User_Autocomplete.as_view(), name='Multi_User_Autocomplete', ),
     url(r'^Sub_course_category_Autocomplete/', views.Sub_course_category_Autocomplete.as_view(), name='Sub_course_category_Autocomplete', ),
@@ -107,7 +108,7 @@ urlpatterns = [
     # batches
     url(r'^add-batch', views.Add_Batch.as_view(), name='add_batch'),
     url(r'^view-batches', views.List_Batch.as_view(), name='view_batches'),
-    url(r'^edit-batch/(?P<pk>\d+)', views.Edit_Batch.as_view(), name='edit_batch'), # batches
+    url(r'^edit-batch/(?P<pk>[0-9a-zA-Z_-]+)', views.Edit_Batch, name='edit_batch'), # batches
     url(r'^delete_batch/(?P<pk>\d+)', views.Delete_Batch.as_view(), name='delete_batch'), # batches
 
     # Main_Course_Category
@@ -214,6 +215,8 @@ urlpatterns = [
 
     #Enchancement
     url('load_user/', views.load_user, name='load_user'),
+    url('get_main_course_id/(?P<id>\d+)', views.get_main_course_id, name='get_main_course_id'),
+    url('get_main_course_user/', views.get_main_course_user.as_view(), name='get_main_course_user'),
 
     # admin URLs end
 # ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
