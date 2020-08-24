@@ -85,16 +85,15 @@
                      {% endfor %}
                     </p>                </div>
                 <div class="form-group ">
-                    <label>{{form.category.label}}</label>
-                    {{form.category}}
+                    <label>{{form.classes.label}}</label>
+                    {{form.classes}}
                     <p style="color:red">
-                    {% for error in form.category.errors %}
+                    {% for error in form.classes.errors %}
                      {{error}}
                      {% endfor %}
                     </p>
                 </div>
-
-                <div class="form-group " id="students_list">
+                <div class="form-group ">
                     <label>{{form.students.label}}</label>
                     {{form.students}}
                     <p style="color:red">
@@ -103,20 +102,7 @@
                      {% endfor %}
                     </p>
                 </div>
-                <div class="form-group " id="">
-                    <label>{{form.teachers.label}}</label>
-                    {{form.teachers}}
-                    <p style="color:red">
-                    {% for error in form.teachers.errors %}
-                     {{error}}
-                     {% endfor %}
-                    </p>
-                </div>
-                <!--<script>-->
-                    <!--$('#id_category').on('change', function() {-->
-                    <!--});-->
-                <!--</script>-->
-                <!--500 google pay nahi to code bnd ho jaye ga -->
+
                 <!--<div class="form-group">-->
                     <!--<label>Start Time</label>-->
                     <!--<input type="text" class="inputfield input-small" id="starttimedate" />-->
@@ -193,6 +179,7 @@ $('.timepicker').datetimepicker({
    }
 });
 })
+
 </script>
 <script>
     $("#id_classes").change(function () {
@@ -211,31 +198,4 @@ $('.timepicker').datetimepicker({
 
     });
   </script>
-
-<script>
-var token = '{{csrf_token}}';
-var categoryID=0;
-$("#id_category").change(function (e) {
-      var categoryID = $(this).val();
-      var catID=categoryID;
-      e.preventDefault();
-  $.ajax({
-  headers: { "X-CSRFToken": token },
-  type: 'GET',
-  url: '/get_main_course_id/' + catID,
-	data: catID,
-	contentType: false,
-    cache: false,
-    processData:false,
-	success: function(data) {
-	console.log("success message ....");
-	$("#students_list").html(data);
-	},
-	error: function() {
-	console.log("error");
-	}
-	});
-	});
-</script>
-
 

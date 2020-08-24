@@ -652,35 +652,12 @@ class List_Batch(LogoutIfNotStaffMixin,TemplateView):
 
 
 
-def Edit_Batch(request, pk):
-    post = get_object_or_404(Batch_Db, pk=pk)
-    # request.session['main_id'] = post.category.id
-
-    list = Batch_Db.objects.filter(id=pk)
-    stu_list =[]
-    for student in list:
-        for xx in student.students.all():
-            stu_list.append(str(xx.id))
-    if request.method == "POST":
-        students = request.POST.getlist("students", "")
-        form = Batch_Form(request.POST,instance=post)
-        if form.is_valid():  # All validation rules pass
-            form.save()
-        li_dif = [i for i in stu_list + students if i not in stu_list or i not in students]
-        if li_dif != []:
-            print (li_dif)
-            live_list = Live_Db.objects.filter(batch=pk)
-            for xx in li_dif:
-                print(live_list)
-                for live in live_list:
-                    Live_Notification_Db.objects.create(student_id=xx,notification_id=live.id,title=live.title,image=live.image,details=live.details)
-        messages.success(request,'Batch Updated Successfully')
-
-        return redirect('view_batches')
-
-    else:
-        form = Batch_Form(instance=post)
-    return render(request, 'admin/batch-edit.html', locals())
+class Edit_Batch(SuccessMessageMixin, LogoutIfNotStaffMixin,UpdateView):
+    model = Batch_Db
+    form_class = Batch_Form
+    template_name = 'admin/batch-edit.html'
+    success_message ='Batch Updated Successfully'
+    success_url = reverse_lazy('view_batches')
 
 
 
@@ -1588,13 +1565,5 @@ def serve_protected_document(request, file):
 
     return response
 
-def get_main_course_id(request   ,id):
-    request.session['main_id'] = id
-    print(id)
-    batch_kliye.objects.filter(id=1).update(name=id)
-
-    form = student_form()
-
-    return render(request, "admin/new.html", locals())
 
 
