@@ -652,87 +652,12 @@ class List_Batch(LogoutIfNotStaffMixin,TemplateView):
 
 
 
-def Edit_Batch(request, pk):
-    post = get_object_or_404(Batch_Db, pk=pk)
-    list = Batch_Db.objects.filter(id=pk)
-    stu_list =[]
-    for student in list:
-        for xx in student.students.all():
-            stu_list.append(str(xx.id))
-    if request.method == "POST":
-        students = request.POST.getlist("students", "")
-        form = Batch_Form(request.POST,instance=post)
-        if form.is_valid():  # All validation rules pass
-            form.save()
-        li_dif = [i for i in stu_list + students if i not in stu_list or i not in students]
-        if li_dif != []:
-            live_list = Live_Db.objects.filter(batch=pk)
-            for xx in li_dif:
-                print(live_list)
-                for live in live_list:
-                    Live_Notification_Db.objects.create(student_id=xx,notification_id=live.id,title=live.title,image=live.image,details=live.details)
-        messages.success(request,'Batch Updated Successfully')
-
-        return redirect('view_batches')
-
-    else:
-        form = Batch_Form(instance=post)
-    return render(request, 'admin/batch-edit.html', locals())
-
-
-# class Edit_Batch(SuccessMessageMixin, LogoutIfNotStaffMixin,UpdateView):
-#     model = Batch_Db
-#     form_class = Batch_Form
-#     template_name = 'admin/batch-edit.html'
-#     success_message ='Batch Updated Successfully'
-#     success_url = reverse_lazy('view_batches')
-
-
-    # def get(self,request,*args, **kwargs):
-    #     list = Batch_Db.objects.all().order_by('-id')
-    #     form = Batch_Form()
-    #     print("heyyyyyyyy")
-    #     return render(request, 'admin/batch-edit.html',locals())
-    # def post(self,request,*args, **kwargs):
-    #     print("posttttttttttttttttttttttt")
-    #     list = Batch_Db.objects.all()
-    #     batch_id = request.POST.getlist('batch')
-    #     print("post1",list)
-    #     print("post2",batch_id)
-        # form = Live__Form(request.POST,request.FILES)
-        # if form.is_valid():
-        #     form.save()
-        #     notification_id= Live_Db.objects.latest('id')
-        #     # print(notification_id.id)
-        #     if len(batch_id) != 0:
-        #         image = form.cleaned_data.get('image')
-        #         print(image)
-        #         # id = form.cleaned_data.get('id')
-        #         # print(id)
-        #         details = form.cleaned_data.get('details')
-        #         print(details)
-        #         print('------------------------')
-        #         if image or details:
-        #             messages.success(request,'Live Successfully Sent')
-        #             for i in batch_id:
-        #                 list =  Batch_Db.objects.filter(id=i)
-        #                 for x in list:
-        #                     for b in x.students.all():
-        #                         form_1 = Live_Student_Form(request.POST, request.FILES)
-        #                         form_11 =form_1.save(commit=False)
-        #                         form_11.student_id=b.id
-        #                         form_11.notification_id=notification_id.id
-        #                         form_11.save()
-        #
-        #
-        #                         # Student_Notification_Db.objects.create(notification_id=notification_id.id,student_id=b.id)
-        #
-        #                         devices = FCMDevice.objects.filter(user_id=b.id)
-        #                         aa ={'data':form.data,'notification_code':1}
-        #                         devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
-        #             return redirect('view_live')
-        #
-
+class Edit_Batch(SuccessMessageMixin, LogoutIfNotStaffMixin,UpdateView):
+    model = Batch_Db
+    form_class = Batch_Form
+    template_name = 'admin/batch-edit.html'
+    success_message ='Batch Updated Successfully'
+    success_url = reverse_lazy('view_batches')
 
 
 
@@ -975,7 +900,7 @@ class Add_Course_Content(SuccessMessageMixin,LogoutIfNotStaffMixin,CreateView):
                        bbb_1 = ext[0].replace(BASE_DIR + '/uploads/', '')
                        self.model.objects.filter(id=xxx.id).update(pdf=bbb_1 + '.pdf')
                    elif smart_str(ext[1]) == 'jpg' or smart_str(ext[1]) == 'png':
-                       print("Successfully save")
+                       print("Successfully save");
                    else:
                        listener = ('127.0.0.1', 2002)
                        converter = DocumentConverter(listener)
@@ -1453,6 +1378,7 @@ class Add_notification(SuccessMessageMixin,LogoutIfNotStaffMixin,View):
                 image = form.cleaned_data.get('image')
                 print(image)
                 # id = form.cleaned_data.get('id')
+                # print(id)
                 details = form.cleaned_data.get('details')
                 print(details)
                 print('------------------------')
@@ -1461,36 +1387,19 @@ class Add_notification(SuccessMessageMixin,LogoutIfNotStaffMixin,View):
                     for i in batch_id:
                         list =  Batch_Db.objects.filter(id=i)
                         for x in list:
-                            if x.type == True:
-                                for b in User.objects.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 = form_1.save(commit=False)
-                                    form_11.student_id = b.id
-                                    form_11.notification_id = notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa = {'data': form.data, 'notification_code': 1}
-                                    devices.send_message(title="TECOnline", body="NeW Message", data={"test": aa})
-                            else:
-                                for b in x.students.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 =form_1.save(commit=False)
-                                    form_11.student_id=b.id
-                                    form_11.notification_id=notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa ={'data':form.data,'notification_code':1}
-                                    devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
-                                for b in x.teachers.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 =form_1.save(commit=False)
-                                    form_11.student_id=b.id
-                                    form_11.notification_id=notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa ={'data':form.data,'notification_code':1}
-                                    devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
+                            for b in x.students.all():
+                                form_1 = Notification_Student_Form(request.POST, request.FILES)
+                                form_11 =form_1.save(commit=False)
+                                form_11.student_id=b.id
+                                form_11.notification_id=notification_id.id
+                                form_11.save()
 
+
+                                # Student_Notification_Db.objects.create(notification_id=notification_id.id,student_id=b.id)
+
+                                devices = FCMDevice.objects.filter(user_id=b.id)
+                                aa ={'data':form.data,'notification_code':1}
+                                devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
                     return redirect('view_notification')
                     # list = Batch_Db.objects.all().order_by('-id')
                 else:
@@ -1530,11 +1439,8 @@ class Add_Live(SuccessMessageMixin,LogoutIfNotStaffMixin,View):
         form = Live__Form()
         return render(request, 'admin/live-add.html',locals())
     def post(self,request,*args, **kwargs):
-        print("posttttttttttttttttttttttt")
         list = Batch_Db.objects.all()
         batch_id = request.POST.getlist('batch')
-        print("post1",list)
-        print("post2",batch_id)
         form = Live__Form(request.POST,request.FILES)
         if form.is_valid():
             form.save()
@@ -1552,37 +1458,20 @@ class Add_Live(SuccessMessageMixin,LogoutIfNotStaffMixin,View):
                     messages.success(request,'Live Successfully Sent')
                     for i in batch_id:
                         list =  Batch_Db.objects.filter(id=i)
-
                         for x in list:
-                            if x.type == True:
-                                for b in User.objects.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 = form_1.save(commit=False)
-                                    form_11.student_id = b.id
-                                    form_11.notification_id = notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa = {'data': form.data, 'notification_code': 1}
-                                    devices.send_message(title="TECOnline", body="NeW Message", data={"test": aa})
-                            else:
-                                for b in x.students.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 =form_1.save(commit=False)
-                                    form_11.student_id=b.id
-                                    form_11.notification_id=notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa ={'data':form.data,'notification_code':1}
-                                    devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
-                                for b in x.teachers.all():
-                                    form_1 = Notification_Student_Form(request.POST, request.FILES)
-                                    form_11 =form_1.save(commit=False)
-                                    form_11.student_id=b.id
-                                    form_11.notification_id=notification_id.id
-                                    form_11.save()
-                                    devices = FCMDevice.objects.filter(user_id=b.id)
-                                    aa ={'data':form.data,'notification_code':1}
-                                    devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
+                            for b in x.students.all():
+                                form_1 = Live_Student_Form(request.POST, request.FILES)
+                                form_11 =form_1.save(commit=False)
+                                form_11.student_id=b.id
+                                form_11.notification_id=notification_id.id
+                                form_11.save()
+
+
+                                # Student_Notification_Db.objects.create(notification_id=notification_id.id,student_id=b.id)
+
+                                devices = FCMDevice.objects.filter(user_id=b.id)
+                                aa ={'data':form.data,'notification_code':1}
+                                devices.send_message(title="TECOnline",body="NeW Message",data={"test":aa})
                     return redirect('view_live')
                     # list = Batch_Db.objects.all().order_by('-id')
                 else:
@@ -1592,10 +1481,6 @@ class Add_Live(SuccessMessageMixin,LogoutIfNotStaffMixin,View):
         # else:
         #
         #     messages.success(request,'Something  went wrong')
-
-
-
-
         return render(request, 'admin/live-add.html',locals())
 
 
@@ -1681,13 +1566,4 @@ def serve_protected_document(request, file):
     return response
 
 
-#
 
-def get_main_course_id(request   ,id):
-    request.session['main_id'] = id
-    print(id)
-    batch_kliye.objects.filter(id=1).update(name=id)
-
-    form = student_form()
-
-    return render(request, "admin/new.html", locals())

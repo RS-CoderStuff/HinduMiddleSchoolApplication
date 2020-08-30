@@ -85,15 +85,26 @@
                      {% endfor %}
                     </p>                </div>
                 <div class="form-group ">
-                    <label>{{form.classes.label}}</label>
-                    {{form.classes}}
+                    <label>{{form.category.label}}</label>
+                    {{form.category}}
                     <p style="color:red">
-                    {% for error in form.classes.errors %}
+                    {% for error in form.category.errors %}
                      {{error}}
                      {% endfor %}
                     </p>
                 </div>
-                <div class="form-group ">
+
+
+                <div class="col-md-12 pr-0 pl-0 mb-3">
+                    <input type="radio" name="type" checked value="True"/>
+                    <label>All</label>
+                    <input type="radio" name="type"  value="False"/>
+                    <label>Students/Teachers</label>
+                </div>
+
+
+                <div class="detailinputhide">
+                <div class="form-group " id="students_list">
                     <label>{{form.students.label}}</label>
                     {{form.students}}
                     <p style="color:red">
@@ -102,22 +113,22 @@
                      {% endfor %}
                     </p>
                 </div>
+                <div class="form-group " id="">
+                    <label>{{form.teachers.label}}</label>
+                    {{form.teachers}}
+                    <p style="color:red">
+                    {% for error in form.teachers.errors %}
+                     {{error}}
+                     {% endfor %}
+                    </p>
+                </div>
+                </div>
 
-                <!--<div class="form-group">-->
-                    <!--<label>Start Time</label>-->
-                    <!--<input type="text" class="inputfield input-small" id="starttimedate" />-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                     <!--<label>End Time</label>-->
-                   <!--<input type="text" class="inputfield input-small" id="endtimedate" />-->
-                <!--</div>-->
 
                 <div class="col-md-12 form-btn">
                     <input type="submit" value="Submit" class="btn btn-danger form-save-btn"/>
                 </div>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>-->
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" rel="stylesheet" />-->
+
             </form>
         </div>
         <!-- Row end -->
@@ -125,42 +136,28 @@
     </div>
     <!-- END: .main-content -->
 </div>
-<!--&lt;!&ndash; END: .app-main &ndash;&gt;-->
-<!--<script>-->
-<!--$('#starttimedate').timepicker({-->
-  <!--timeFormat: 'hh:mm a',-->
-  <!--interval: 30,-->
-  <!--minTime: '8',-->
-  <!--maxTime: '11:00 PM',-->
-  <!--startTime: '08:00 AM',-->
-  <!--dynamic: false,-->
-  <!--dropdown: true,-->
-  <!--scrollbar: true-->
-<!--});-->
 
-<!--$('#starttimedate')-->
-  <!--.timepicker('option', 'change', function(time) {-->
-    <!--$('#endtimedate').timepicker('option', 'minTime', time);-->
-    <!--$('#endtimedate').timepicker('setTime', later);-->
-  <!--});-->
-
-<!--$('#endtimedate').timepicker({-->
-  <!--timeFormat: 'hh:mm a',-->
-  <!--interval: 30,-->
-  <!--maxTime: '11:00 PM',-->
-  <!--startTime: '08:00 AM',-->
-  <!--dynamic: false,-->
-  <!--dropdown: true,-->
-  <!--scrollbar: true-->
-<!--});-->
-<!--</script>-->
-
-<!--&lt;!&ndash;<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>&ndash;&gt;-->
 
 <!-- END: .app-container -->
 {% include 'admin/admin-footer.html' %}
 
 <script src="{% static '' %}admin/js/datetimepicker.js"></script>
+
+<script>
+$(document).ready(function(){
+$("input[type='radio']").change(function(){
+if($(this).val()=="False")
+{
+$(".detailinputhide").show();
+}
+else
+{
+$(".detailinputhide").hide();
+}
+});
+});
+
+</script>
 <script>
 $(document).ready(function()
 {
@@ -179,7 +176,6 @@ $('.timepicker').datetimepicker({
    }
 });
 })
-
 </script>
 <script>
     $("#id_classes").change(function () {
@@ -198,4 +194,31 @@ $('.timepicker').datetimepicker({
 
     });
   </script>
+
+<script>
+var token = '{{csrf_token}}';
+var categoryID=0;
+$("#id_category").change(function (e) {
+      var categoryID = $(this).val();
+      var catID=categoryID;
+      e.preventDefault();
+  $.ajax({
+  headers: { "X-CSRFToken": token },
+  type: 'GET',
+  url: '/get_main_course_id/' + catID,
+	data: catID,
+	contentType: false,
+    cache: false,
+    processData:false,
+	success: function(data) {
+	console.log("success message ....");
+	$("#students_list").html(data);
+	},
+	error: function() {
+	console.log("error");
+	}
+	});
+	});
+</script>
+
 

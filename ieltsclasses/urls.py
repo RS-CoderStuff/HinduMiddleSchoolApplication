@@ -29,6 +29,7 @@ from django.views.static import serve
 urlpatterns = [
 
     url(r'^country-autocomplete/$', views.CountryAutocomplete.as_view(), name='country-autocomplete', ),
+    url(r'^teacher-autocomplete/$', views.TeacherAutocomplete.as_view(), name='teacher-autocomplete', ),
     url(r'^Course_Content_Autocomplete/$', views.Course_Content_Autocomplete.as_view(), name='Course_Content_Autocomplete', ),
     url(r'^Multi_User_Autocomplete/', views.Multi_User_Autocomplete.as_view(), name='Multi_User_Autocomplete', ),
     url(r'^Sub_course_category_Autocomplete/', views.Sub_course_category_Autocomplete.as_view(), name='Sub_course_category_Autocomplete', ),
@@ -40,7 +41,7 @@ urlpatterns = [
     url('rest-auth/', include('rest_auth.urls')),
 
     url(r'^aaa', views.aaa, name='aaa'),
-#    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
     url('policy/', views.policy, name='policy'),
     url(r'^blogs', views.blog, name='blogs'),
     url(r'^blog/(?P<slug>[-\w\d]+)', views.blog_details, name='blog_details'),
@@ -59,12 +60,12 @@ urlpatterns = [
     # url(r'^crash-courses', views.crash_courses, name='crash_courses'),
     # url(r'^course-details/(?P<pk>\d+)/(?P<sub_id>\d+)', views.course_details, name='course_details'),
 
-    url(r'^$', views.sign_in, name='sign_in'),
+    url(r'^sign-in', views.sign_in, name='sign_in'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
-   # url(r'^sign-up', views.Sign_Up.as_view(), name='sign_up'),
+    url(r'^sign-up', views.Sign_Up.as_view(), name='sign_up'),
     url(r'^Contact_us_save', views.Contact_us_save.as_view(), name='Contact_us_save'),
-    url(r'^logout', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^logout', auth_views.LogoutView, {'next_page': '/'}, name='logout'),
 
 
     #######################################
@@ -107,7 +108,7 @@ urlpatterns = [
     # batches
     url(r'^add-batch', views.Add_Batch.as_view(), name='add_batch'),
     url(r'^view-batches', views.List_Batch.as_view(), name='view_batches'),
-    url(r'^edit-batch/(?P<pk>\d+)', views.Edit_Batch.as_view(), name='edit_batch'), # batches
+    url(r'^edit-batch/(?P<pk>[0-9a-zA-Z_-]+)', views.Edit_Batch, name='edit_batch'), # batches
     url(r'^delete_batch/(?P<pk>\d+)', views.Delete_Batch.as_view(), name='delete_batch'), # batches
 
     # Main_Course_Category
@@ -214,6 +215,8 @@ urlpatterns = [
 
     #Enchancement
     url('load_user/', views.load_user, name='load_user'),
+    url('get_main_course_id/(?P<id>\d+)', views.get_main_course_id, name='get_main_course_id'),
+    url('get_main_course_user/', views.get_main_course_user.as_view(), name='get_main_course_user'),
 
     # admin URLs end
 # ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

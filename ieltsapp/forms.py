@@ -22,7 +22,12 @@ class CountryAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(username__istartswith=self.q)
         return qs
 
-
+class TeacherAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.filter(user_type=1)
+        if self.q:
+            qs = qs.filter(username__istartswith=self.q)
+        return qs
 
 class Course_Content_Autocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -558,7 +563,7 @@ class Course_Content_Form(forms.ModelForm):
     #     super().__init__(*args, **kwargs)
     #     self.fields['super_course_category_id'].queryset = Super_Course_Category_Db.objects.none()
     #     if 'main_course_category_id' in self.data:
-    #         try:
+    #         try: batch form nikla
     #             main_course_category_id = int(self.data.get('main_course_category_id'))
     #             self.fields['super_course_category_id'].queryset = Super_Course_Category_Db.objects.filter(
     #                 main_course_category_id=main_course_category_id)
@@ -594,18 +599,30 @@ class Batch_Form(forms.ModelForm):
     description = forms.CharField(required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield"}))
     start_time = forms.CharField(label='Start Time',required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield input-small timepicker"}))
     end_time = forms.CharField(label='End Time',required=True,max_length=1000,widget=forms.TextInput(attrs={'class': "inputfield input-small timepicker"}))
-    #students = forms.ModelMultipleChoiceField(required=True,queryset=User.objects.filter(user_type=2),widget=autocomplete.ModelSelect2Multiple(url='country-autocomplete',attrs={'class': "inputfield"}))
-    classes = forms.ModelChoiceField(label='Category',required=False,
-                                                      queryset=Main_Course_Category_Db.objects.all(),
-                                                      empty_label="All User",
-                                                      widget=forms.Select(attrs={'class': "inputfield"}))
-    students = forms.ModelMultipleChoiceField(label='Users',queryset=User.objects.filter(user_type__in = [1,2]),widget=forms.SelectMultiple(attrs={'class': "inputfield"}))
+    category = forms.ModelChoiceField(label='Main Course Category',queryset=Main_Course_Category_Db.objects.all(), empty_label="Select Main Course Category",widget=forms.Select(attrs={'class': "inputfield"}))
+    teachers = forms.ModelMultipleChoiceField(required=False,queryset=User.objects.filter(user_type=1),widget=autocomplete.ModelSelect2Multiple(url='teacher-autocomplete',attrs={'class': "inputfield"}))
+    type = forms.BooleanField(required=False)
+
     class Meta:
         model = Batch_Db
-        fields = ['name', 'description', 'start_time', 'end_time', 'classes', 'students']
-    def __init__(self, *args, **kwargs):
+        fields = ['name', 'description', 'start_time', 'end_time', 'category', 'students','teachers','type']
+    def __init__(self,  *args, **kwargs):
         super(Batch_Form, self).__init__(*args, **kwargs)
-
+        if self.instance.pk != None:
+            xxx= Batch_Db.objects.get(id=self.instance.pk)
+            abc = xxx.category.id
+            list = User_Profile.objects.filter(main_course_category_id=abc)
+            batch_kliye.objects.filter(id=1).update(name=abc)
+            aa = []
+            for list in list:
+                aa.append(list.user_id.id)
+            self.fields['students'] = forms.ModelMultipleChoiceField(required=False, queryset=User.objects.filter(id__in=aa,user_type=2),
+                                                       widget=autocomplete.ModelSelect2Multiple(
+                                                          url='get_main_course_user', attrs={'class': "inputfield"}))
+        else:
+            self.fields['students']  = forms.ModelMultipleChoiceField(required=False, queryset=User.objects.filter(user_type=2),
+                                                      widget=autocomplete.ModelSelect2Multiple(
+                                                          url='country-autocomplete', attrs={'class': "inputfield"}))
     def clean_name(self):
         if self.instance.pk != None:
             name = self.cleaned_data.get('name')
@@ -728,5 +745,30 @@ class Live_Student_Form(forms.ModelForm):
 
         # fields = '__all__'
 
+class get_main_course_user(autocomplete.Select2QuerySetView):
+
+    def get_queryset(self):
+        aa =  batch_kliye.objects.get(id=1)
+
+        print(aa)
+
+        list = User_Profile.objects.filter(main_course_category_id=aa.name)
 
 
+        aa = []
+        for list in list:
+            aa.append(list.user_id.id)
+
+        qs=User.objects.filter(id__in=aa,user_type=2)
+        print(qs,'------')
+        if self.q:
+            print(self.q,'---hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh----')
+            qs = qs.filter(username__istartswith=self.q)
+        return qs
+
+
+
+
+
+class student_form(forms.Form):
+    students = forms.ModelMultipleChoiceField(required=False,queryset=User.objects.filter(user_type=2),widget=autocomplete.ModelSelect2Multiple(url='get_main_course_user',attrs={'class': "inputfield"}))
